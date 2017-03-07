@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>Movie Library</title>
+    <meta charset="utf-8">
+
+    <!-- CSS -->  
+    
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>         
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="js/app.js"></script>
+
+</head>
+
+<body ng-controller="mainController" style="background-color: darkcyan;">
+
+<h1 style="color: lemonchiffon;" align="center"> Search For Movies </h1>
+<form>
+    <input id="search" type="search" name="search" placeholder="Movie name" ng-model="movieName"/>
+    <ul style="margin: 20px;"><li ng-click="getMovie()"><a class="round yellow">Search<span class="round">Click to get the Movie details</span></a></li></ul>
+</form>
+
+<div class="">
+    <figure class="snip1583">
+  <img ng-src="{{$scope.movieDetail.Poster}}" alt="sample68" />
+  <div class="icons"><a><i class="ion-android-star"></i></a></div>
+  <figcaption>
+    <h3>{{$scope.movieDetail.Actors}}</h3>
+    <div class="price">{{$scope.movieDetail.Title}}</div>
+  </figcaption>
+</figure>
+
+
+<!--<figure class="snip1579"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample74.jpg" alt="profile-sample2"/>
+  <figcaption>
+    <h3>Sue Shei</h3>
+    <h5>Founder</h5>
+    <blockquote>
+      <p>'Which is worse, that everyone has his price, or that the price is always so low.'</p>
+    </blockquote>
+  </figcaption><a href="#"></a>
+</figure>-->
+
+
+</div>
+
+
+
+</body>
+
+
+</html>
