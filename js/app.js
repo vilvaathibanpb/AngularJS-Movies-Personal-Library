@@ -3,6 +3,7 @@ var myApp = angular.module("myApp",[]);
 myApp.controller("mainController",["$scope","$http",function($scope,$http){
     console.log("mainController");
     $scope.movieName = "";
+    //$scope.movieDetail = [];
 
     $scope.getMovie = function(){
         console.log("fun");
@@ -10,6 +11,13 @@ myApp.controller("mainController",["$scope","$http",function($scope,$http){
     .then(function(res){
         $scope.movieDetail = res.data;   
         console.log($scope.movieDetail);             
+        if($scope.movieDetail.Response === "False"){
+            $scope.movieDetail = []; 
+            $scope.movieDetail.Title = "Sorry, The Movie doesnt Exist";
+            $scope.movieDetail.Poster = "";
+            console.log($scope.movieDetail);
+        }
+
     }, function(res){
         console.log("fail");
     })

@@ -7,6 +7,7 @@
     <!-- CSS -->  
     
     <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/image.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -25,31 +26,24 @@
     <ul style="margin: 20px;"><li ng-click="getMovie()"><a class="round yellow">Search<span class="round">Click to get the Movie details</span></a></li></ul>
 </form>
 
-<div class="">
-    <figure class="snip1583">
-  <img ng-src="{{$scope.movieDetail.Poster}}" alt="sample68" />
-  <div class="icons"><a><i class="ion-android-star"></i></a></div>
-  <figcaption>
-    <h3>{{$scope.movieDetail.Actors}}</h3>
-    <div class="price">{{$scope.movieDetail.Title}}</div>
+<div class="imgbox" ng-show="movieDetail">
+<figure class="">
+  <img ng-src="{{movieDetail.Poster}}" class="image" ng-show="movieDetail.Response"/>
+  <div class="img-overlay" ng-show="movieDetail.Response">
+        <div class="details">           
+                <h4>Director : {{movieDetail.Director}}</h4>           
+                <h4>Language : {{movieDetail.Language}}</h4>           
+                <h4>Runtime  : {{movieDetail.Runtime}}</h4>           
+                <h4>Genre    : {{movieDetail.Genre}}</h4>           
+                <h4>Country    : {{movieDetail.Country}}</h4>           
+        </div>
+    </div> 
+  <figcaption>   
+    <div><h1 style="color: white"><b>{{movieDetail.Title}}</b> - {{movieDetail.Year}}</h1>
+     <h3 style="color: black" ng-show="movieDetail.Response">Starring:<b><i> {{movieDetail.Actors}}</i></b></h3></div>
   </figcaption>
 </figure>
-
-
-<!--<figure class="snip1579"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample74.jpg" alt="profile-sample2"/>
-  <figcaption>
-    <h3>Sue Shei</h3>
-    <h5>Founder</h5>
-    <blockquote>
-      <p>'Which is worse, that everyone has his price, or that the price is always so low.'</p>
-    </blockquote>
-  </figcaption><a href="#"></a>
-</figure>-->
-
-
 </div>
-
-
 
 </body>
 
