@@ -1,12 +1,42 @@
 var myApp = angular.module("myApp",[]);
 
-myApp.controller("mainController",["$scope","$http",function($scope,$http){
-    console.log("mainController");
+
+myApp.factory('$localstorage',['$window', function($window){
+    return{
+        set: function(key, value){
+            $window.localStorage[key] = value;
+        },
+        get: function(key, defaultValue){
+            return $window.localStorage[key] || false;
+        },
+        setObject: function(key,value){
+            $window.localStorage[key] = JSON.stringify(value);
+        },
+        getObject: function(key){
+            if($window.localStorage[key] != undefined){
+                return JSON.parse($window.localStorage[key] || false);
+            }
+        }
+    }
+}
+]);
+
+
+
+
+myApp.controller("mainController",["$scope","$http","$localstorage",function($scope,$http,$localstorage){
+
+    if($localstorage.getObject("Movie")){
+        $scope.usermovie = $localstorage.getObject("Movie");
+    }else{
+        $scope.usermovie = [];
+    }
+    
     $scope.movieName = "";
-    //$scope.movieDetail = [];
+    
 
     $scope.getMovie = function(){
-        console.log("fun");
+    $scope.addlib = "Add to Personal Library";
     $http.get("http://www.omdbapi.com/?t="+$scope.movieName)
     .then(function(res){
         $scope.movieDetail = res.data;   
@@ -21,25 +51,35 @@ myApp.controller("mainController",["$scope","$http",function($scope,$http){
     }, function(res){
         console.log("fail");
     })
+}
+
+    $scope.addMovie = function($userMovieDetails){
+        var details = $userMovieDetails;
+        var exist = $scope.usermovie.some(function(e1){
+            return e1.imdbID == $userMovieDetails.imdbID;
+        });
+        if(!exist){
+            $scope.usermovie.push($userMovieDetails);
+        }
+        $localstorage.setObject("Movie",$scope.usermovie);
+        $scope.addlib = "Movie Added";
+         console.log($scope.usermovie);
+    console.log($localstorage);
     }
- 
-// $scope.topNewsFeed = [];
-
-// var getTopNews = function getTopNews(){
-// for(var i=0;i<sourceLen;i++){    
-//     $http.get("https://newsapi.org/v1/articles?source="+ $scope.sourceList[i].id+"&sortBy=top&apiKey="+$scope.authKey)    
-//     .then(function(res){
-//         angular.forEach(res.data.articles,function(o){
-//         $scope.topNewsFeed.push(o);     
-//         })        
-//         console.log($scope.topNewsFeed);
-//     }, function(res){
-//         console.log("fail");
-//     })
-// }
-// }
-
-
+   
 }
 ]);
 
+
+myApp.controller("libController",["$scope","$http","$localstorage",function($scope,$http,$localstorage){
+     if($localstorage.getObject("Movie")){
+        $scope.usermovie = $localstorage.getObject("Movie");        
+    }else{
+        $scope.usermovie = [];        
+    }
+    if($scope.usermovie.length > 0){
+        $scope.msg = "";
+    }else{
+        $scope.msg = "No movies added yet";
+    }
+}]);
